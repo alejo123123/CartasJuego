@@ -45,4 +45,20 @@ public class Jugador {
 
         return resultado;
     }
+
+    public int getPuntaje() {
+    int puntaje = 0;
+    int[] contadores = new int[NombreCarta.values().length];
+
+    for (Carta carta : cartas) {
+        contadores[carta.getNombre().ordinal()]++;
+    }
+
+    for (Carta carta : cartas) {
+        if (contadores[carta.getNombre().ordinal()] < 2) {
+            puntaje += carta.getValor();
+        }
+    }
+    return puntaje;
+}
 }

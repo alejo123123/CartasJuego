@@ -1,5 +1,4 @@
 import java.awt.Color;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -38,24 +37,14 @@ public class FrmJuego extends JFrame {
         tpJugadores.addTab("Martín Estrada Contreras", pnlJugador1);
         tpJugadores.addTab("Raúl Vidal", pnlJugador2);
 
-        // eventos
-        
+        // Eventos
         btnRepartir.addActionListener(e -> {
             repartir();
         });
-        /* 
-        btnRepartir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-               repartir();
-            }
-            
-        });
-        */
 
         btnVerificar.addActionListener(e -> {
             verificar();
         });
-
     }
 
     private void repartir() {
@@ -65,13 +54,27 @@ public class FrmJuego extends JFrame {
         jugador2.mostrar(pnlJugador2);
     }
 
-    private void verificar(){
-        if(tpJugadores.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(null, jugador1.getGrupos());
-        }
-        else{
-            JOptionPane.showMessageDialog(null, jugador2.getGrupos());
-        }
-    }
+    private void verificar() {
+        Jugador jugadorActual;
 
+        // Identificamos qué pestaña está seleccionada
+        if (tpJugadores.getSelectedIndex() == 0) {
+            jugadorActual = jugador1;
+        } else {
+            jugadorActual = jugador2;
+        }
+
+        // Obtenemos los grupos y validamos si el texto está vacío
+        String misGrupos = jugadorActual.getGrupos();
+        if (misGrupos.length() == 0) {
+            misGrupos = "Ninguno";
+        }
+
+        // Armamos el mensaje final con los grupos y el puntaje
+        String mensaje = "GRUPOS FORMADOS:\n" + misGrupos + 
+                         "\n--------------------\n" +
+                         "PUNTAJE RESTANTE: " + jugadorActual.getPuntaje();
+
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
 }
